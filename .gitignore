@@ -1,0 +1,33 @@
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+db.sqlite3
+*.db
+*.sqlite3
+*.env
+.env
+*.csv
+*.json
+
+# VSCode
+.vscode/
+
+# Environment
+venv/
+env/
+.venv/
+
+# Static & Media
+static/
+staticfiles/
+media/
+logs/
+
+# Ignore all other generated files
+*.bak
+*.swp
+*.swo
