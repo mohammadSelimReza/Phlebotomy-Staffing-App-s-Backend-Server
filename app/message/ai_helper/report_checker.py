@@ -40,5 +40,6 @@ def report_checking(reported_reason: str, additional_details: str) -> Tuple[str,
     else:
         return "Normal Behavior", "low"
     
-a = report_checking(reported_reason, additional_details)
-print(a)
+if __name__ == "__main__":
+    a = report_checking(reported_reason, additional_details)
+    print(a)
