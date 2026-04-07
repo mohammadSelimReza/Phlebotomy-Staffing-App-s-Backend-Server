@@ -17,12 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-t_5i8e%+b-*eeok87@!@03shs*%ymg9lzml1q2i-z)v#lq)2f*"
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 
 # Application definition
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "True").lower() == "true"
 
 ROOT_URLCONF = "_core.urls"
 
@@ -82,9 +82,9 @@ ASGI_APPLICATION = "_core.asgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 cloudinary.config(
-    cloud_name="dwubxywn0",
-    api_key="695361739612223",
-    api_secret="X4Y43ofOjFFEoG51IU7uYDFF95s",
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME", "dwubxywn0"),
+    api_key=os.getenv("CLOUDINARY_API_KEY", "695361739612223"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET", "X4Y43ofOjFFEoG51IU7uYDFF95s"),
 )
 
 PROD_DATABASES = {
@@ -195,21 +195,21 @@ SIMPLE_JWT = {
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "srreza1999@gmail.com"
-EMAIL_HOST_PASSWORD = "rlnirsfciwyzwxnk"
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "srreza1999@gmail.com")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "rlnirsfciwyzwxnk")
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-FRONTEND_URL = "http://10.10.13.12:5173"
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://10.10.13.12:5173")
 
 
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [(os.getenv("REDIS_HOST", "127.0.0.1"), int(os.getenv("REDIS_PORT", 6379)))],
         },
     },
 }
